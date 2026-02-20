@@ -1,9 +1,9 @@
-function StartScreen() {
+function StartScreen({ numQuestions }) {
   return (
-    <div clas>
+    <div className="start">
       <h2>Welcome to the React quiz!</h2>
-      <h3>X question to test your React skills</h3>
-      <button>Let's start</button>
+      <h3>{numQuestions} questions to test your React skills</h3>
+      <button className="btn btn-ui">Let's start</button>
     </div>
   );
 }
