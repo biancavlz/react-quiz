@@ -1,5 +1,5 @@
 function Question() {
-  return <></>;
+  return <>question</>;
 }
 
 export default Question;
