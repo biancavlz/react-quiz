@@ -10,6 +10,7 @@ import NextButton from "./NextButton";
 import Progress from "./Progress";
 import FinishedScreen from "./FinishedScreen";
 import Footer from "./Footer";
+import Timer from "./Timer";
 
 const initialState = {
   questions: [],
@@ -18,6 +19,7 @@ const initialState = {
   answer: null,
   points: 0,
   hightscore: 0,
+  secondsRemaining: 10,
 };
 
 function reducer(state, action) {
@@ -57,14 +59,22 @@ function reducer(state, action) {
     //   points: 0,
     //   hightscore: 0,
     // };
+    case "tick":
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining - 1,
+        status: state.secondsRemaining === 0 ? "finished" : state.status,
+      };
     default:
       throw new Error("Unknown action type");
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer, points, hightscore }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { questions, status, index, answer, points, hightscore, secondsRemaining },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const maxPossiblePoints = questions.reduce(
@@ -103,6 +113,7 @@ function App() {
               answer={answer}
             />
             <Footer>
+              <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
               <NextButton
                 dispatch={dispatch}
                 answer={answer}
